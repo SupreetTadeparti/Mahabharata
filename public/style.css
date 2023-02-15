@@ -1,0 +1,80 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.container {
+  padding-top: 2em;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: hsl(31, 42%, 90%);
+}
+
+.container > * {
+  position: relative;
+}
+
+.main-heading {
+  font-size: 2.5em;
+}
+
+.book-heading {
+  font-size: 1.75em;
+}
+
+.section-heading {
+  font-size: 1.25em;
+}
+
+.next, .prev {
+  position: absolute;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 5px solid black;
+  border-top: 5px solid transparent;
+  border-left: 5px solid transparent;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.next {
+  left: 110%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.prev {
+  right: 110%;
+  transform: translateY(-50%) rotate(135deg);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 5em 2em;
+}
+
+.content > p {
+  text-indent: 1em;
+} 
+
+.toc {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 1em;
+  padding: 3em 2em;
+}
+
+.toc > a {
+  color: black;
+}
+
+.toc > a:visited {
+  color: hsl(120, 75%, 40%);
+}

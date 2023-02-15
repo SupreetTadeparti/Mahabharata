@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Mahabharata - Table of Contents</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-heading">Mahabharata</div>
+      <div class="toc">
+      </div>
+      <% if (locals.book) { %>
+        <script type="module">
+            const book = "Book <%- locals.book %>"
+            const tocEl = document.querySelector(".toc");
+            const mainHeading = document.querySelector(".main-heading");
+            const bookHeading = document.createElement("div");
+            bookHeading.textContent = book;
+            bookHeading.classList.add("book-heading");
+            mainHeading.parentNode.insertBefore(bookHeading, mainHeading.nextSibling);
+            fetch("http://localhost:3000/data")
+            .then((response) => response.json())
+            .then((json) => {
+                for (const section in json[`${book}`]) {
+                    const sectionEl = document.createElement("a");
+                    sectionEl.textContent = section;
+                    sectionEl.href = `/?book=${book.split(" ")[1]}&section=${section.split(" ")[1]}`
+                    tocEl.appendChild(sectionEl);
+                }
+            });
+        </script>
+      <% } else { %>
+        <script type="module">
+            const tocEl = document.querySelector(".toc");
+            fetch("http://localhost:3000/data")
+            .then((response) => response.json())
+            .then((json) => {
+                for (const book in json) {
+                    const bookEl = document.createElement("a");
+                    bookEl.textContent = book;
+                    bookEl.href = `/toc?book=${book.split(" ")[1]}`;
+                    tocEl.appendChild(bookEl);
+                }
+            });
+        </script>
+      <% } %>
+    </div>
+  </body>
+</html>
