@@ -32,7 +32,8 @@
   font-size: 1.25em;
 }
 
-.next, .prev {
+.next,
+.prev {
   position: absolute;
   top: 50%;
   width: 0;
@@ -55,14 +56,21 @@
 
 .content {
   display: flex;
-  flex-direction: column;
   gap: 1em;
   padding: 5em 2em;
 }
 
-.content > p {
+.content > * {
+  width: 100%;
+}
+
+.content__english > p {
   text-indent: 1em;
-} 
+}
+
+.content__sanskrit > .numbered {
+  transform: translateX(-1ch);
+}
 
 .toc {
   display: grid;
