@@ -65,7 +65,13 @@
 }
 
 .content__english > p {
-  text-indent: 1em;
+  text-indent: 4em;
+  max-width: 75%;
+}
+
+.content__sanskrit > p {
+  margin: 0 auto;
+  max-width: 45%;
 }
 
 .content__sanskrit > .numbered {

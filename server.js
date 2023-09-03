@@ -8,7 +8,11 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render("index", req.query);
+  res.render("index")
+})
+
+app.get("/read", (req, res) => {
+  res.render("read", req.query);
 });
 
 app.get("/toc", (req, res) => {
