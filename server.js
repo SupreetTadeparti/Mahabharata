@@ -20,12 +20,12 @@ app.get("/toc", (req, res) => {
   res.render("toc", req.query);
 });
 
-app.get("/data", (_req, res) => {
-  res.json(data);
+app.get("/data", (req, res) => {
+  res.json(data[`Book ${req.query.book}`][`Section ${req.query.section}`]);
 });
 
-app.get("/sdata", (_req, res) => {
-  res.json(sdata);
+app.get("/sdata", (req, res) => {
+  res.json(sdata[`Book ${req.query.book}`][`Section ${req.query.section}`]);
 });
 
 app.listen(3000);
