@@ -8,7 +8,7 @@ require("dotenv");
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.render("index");
 });
 

@@ -46,6 +46,7 @@
         const tocSectionEl = document.querySelector(".toc");
         for (let i = 1; i <= books[book]; i++) {
           const sectionEl = document.createElement("a");
+          sectionEl.classList.add("link");
           sectionEl.textContent = `Section ${i}`;
           sectionEl.href = `/read?book=${book}&section=${i}`;
           tocSectionEl.appendChild(sectionEl);
@@ -56,6 +57,7 @@
         const tocBookEl = document.querySelector(".toc");
         for (let i = 1; i <= Object.keys(books).length; i++) {
           const bookEl = document.createElement("a");
+          bookEl.classList.add("link");
           bookEl.textContent = `Book ${i}`;
           bookEl.href = `/toc?book=${i}`;
           tocBookEl.appendChild(bookEl);

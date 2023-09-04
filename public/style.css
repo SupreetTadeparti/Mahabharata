@@ -71,6 +71,7 @@
 .content__english > p {
   text-indent: 4em;
   max-width: 75%;
+  margin: 0 auto;
 }
 
 .content__sanskrit > p {
@@ -111,10 +112,27 @@
   padding: 3em 2em;
 }
 
-.toc > a {
+.link {
   color: black;
 }
 
-.toc > a:visited {
+.link:visited {
   color: hsl(120, 75%, 40%);
+}
+
+.about {
+  width: 100%;
+  margin: 5em 0;
+}
+
+.about > p {
+  margin: 0 auto;
+  max-width: 50%;
+  text-indent: 4em;
+}
+
+nav {
+  margin-top: 1em;
+  display: flex;
+  gap: 1em;
 }
