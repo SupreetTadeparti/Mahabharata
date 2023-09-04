@@ -64,6 +64,10 @@
   width: 100%;
 }
 
+.content__sanskrit {
+  counter-reset: sloka -1;
+}
+
 .content__english > p {
   text-indent: 4em;
   max-width: 75%;
@@ -74,8 +78,30 @@
   max-width: 45%;
 }
 
-.content__sanskrit > .numbered {
-  transform: translateX(-1ch);
+.content__sanskrit > p:not(.num-para)::after {
+  content: "||";
+  margin: 0 0.25em;
+}
+
+.num-para {
+  position: relative;
+}
+
+.num-para:not(:nth-child(1)) {
+  margin-top: 1em;
+}
+
+.num-para::before {
+  content: counter(sloka);
+  counter-increment: sloka;
+  position: absolute;
+  top: 0;
+  right: calc(100% + 1.5ch);
+}
+
+.num-para::after {
+  content: "|";
+  margin: 0 0.25em;
 }
 
 .toc {

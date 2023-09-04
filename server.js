@@ -1,15 +1,16 @@
 const express = require("express");
-const ejs = require("ejs");
 const app = express();
 const data = require("./data.json");
 const sdata = require("./sdata.json");
+
+require("dotenv");
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render("index")
-})
+  res.render("index");
+});
 
 app.get("/read", (req, res) => {
   res.render("read", req.query);
@@ -27,6 +28,4 @@ app.get("/sdata", (_req, res) => {
   res.json(sdata);
 });
 
-app.listen(3000, () => {
-  console.log("Listening on port ", 3000);
-});
+app.listen(3000);

@@ -55,8 +55,13 @@
           const paraEl = document.createElement("p");
           paraEl.textContent = para;
           const numLen = para.replace(/\D/g, "").length;
-          if (!isNaN(para[0]))
-            paraEl.style.transform = `translateX(-${numLen}ch)`;
+          if (!isNaN(para[0])) {
+            paraEl.classList.add("num-para");
+            paraEl.textContent = para.substr(
+              para.split(" ")[0].length,
+              para.length
+            );
+          }
           sanskritContentEl.appendChild(paraEl);
         }
       });
