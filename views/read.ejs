@@ -1,86 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <title>
-      Mahabharata - Book <%- parseInt(book) %> Section <%- parseInt(section) %>
-    </title>
-  </head>
 
-  <body>
-    <div class="container">
-      <div class="main-heading">Mahabharata</div>
-      <div class="book-heading">
-        <% if (parseInt(book) !== 1) { %>
-        <a
-          href="/read?book=<%- parseInt(book) - 1 %>&section=1"
-          class="prev"
-        ></a>
-        <% } %> Book <%= book %>
-        <a
-          href="/read?book=<%- parseInt(book) + 1 %>&section=1"
-          class="next"
-        ></a>
-      </div>
-      <div class="section-heading">
-        <% if (parseInt(section) !== 1) { %>
-        <a
-          href="/read?book=<%- book %>&section=<%- parseInt(section) - 1 %>"
-          class="prev"
-        ></a>
-        <% } %> Section <%= section %>
-        <a
-          href="/read?book=<%- book %>&section=<%- parseInt(section) + 1 %>"
-          class="next"
-        ></a>
-      </div>
-      <div class="content">
-        <div class="content__sanskrit"></div>
-        <div class="content__english"></div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <title>
+    Mahabharata - Book <%- parseInt(book) %> Section <%- parseInt(section) %>
+  </title>
+</head>
+
+<body>
+  <div class="container">
+    <a class="main-heading" href="/">Mahabharata</a>
+    <div class="book-heading">
+      <% if (parseInt(book) !== 1) { %>
+      <a href="/read?book=<%- parseInt(book) - 1 %>&section=1" class="prev"></a>
+      <% } %>
+
+      Book <%= book %> - <%= bookNames[parseInt(book) - 1] %>
+
+      <% if (parseInt(book) < 18) { %>
+      <a href="/read?book=<%- parseInt(book) + 1 %>&section=1" class="next"></a>
+      <% } %>
     </div>
-  </body>
-  <script type="module">
-    const BASE_URL = "<%= process.env.BASE_URL %>";
-    const book = "<%- book %>";
-    const section = "<%- section %>";
-    const englishContentEl = document.querySelector(".content__english");
-    const sanskritContentEl = document.querySelector(".content__sanskrit");
-    fetch(`${BASE_URL}/sdata?book=${book}&section=${section}`)
-      .then((res) => res.json())
-      .then((json) => {
-        for (let para of json) {
-          para = para.trim();
-          const paraEl = document.createElement("p");
-          paraEl.textContent = para;
-          const numLen = para.replace(/\D/g, "").length;
-          if (!isNaN(para[0])) {
-            paraEl.classList.add("num-para");
-            paraEl.textContent = para.substr(
-              para.split(" ")[0].length,
-              para.length
-            );
-          }
-          sanskritContentEl.appendChild(paraEl);
+    <div class="section-heading">
+      <% if (parseInt(section) !== 1) { %>
+      <a href="/read?book=<%- book %>&section=<%- parseInt(section) - 1 %>" class="prev"></a>
+      <% } %>
+
+      Section <%= section %>
+ 
+      <% if (parseInt(section) < numSections[parseInt(book) - 1]) { %>
+      <a href="/read?book=<%- book %>&section=<%- parseInt(section) + 1 %>" class="next"></a>
+      <% } %>
+    </div>
+    <div class="content">
+      <div class="content__sanskrit"></div>
+      <div class="content__english"></div>
+    </div>
+  </div>
+</body>
+<script type="module">
+  const BASE_URL = "<%= process.env.BASE_URL %>";
+  const book = "<%- book %>";
+  const section = "<%- section %>";
+  const englishContentEl = document.querySelector(".content__english");
+  const sanskritContentEl = document.querySelector(".content__sanskrit");
+  fetch(`${BASE_URL}/sdata?book=${book}&section=${section}`)
+    .then((res) => res.json())
+    .then((json) => {
+      for (let para of json) {
+        para = para.trim();
+        const paraEl = document.createElement("p");
+        paraEl.textContent = para;
+        const numLen = para.replace(/\D/g, "").length;
+        if (!isNaN(para[0])) {
+          paraEl.classList.add("num-para");
+          paraEl.textContent = para.substr(
+            para.split(" ")[0].length,
+            para.length
+          );
         }
-      });
-    fetch(`${BASE_URL}/data?book=${book}&section=${section}`)
-      .then((res) => res.json())
-      .then((json) => {
-        for (const para of json) {
-          const paraEl = document.createElement("p");
-          paraEl.textContent = para;
-          englishContentEl.appendChild(paraEl);
-        }
-      });
-  </script>
+        sanskritContentEl.appendChild(paraEl);
+      }
+    });
+  fetch(`${BASE_URL}/data?book=${book}&section=${section}`)
+    .then((res) => res.json())
+    .then((json) => {
+      for (const para of json) {
+        const paraEl = document.createElement("p");
+        paraEl.textContent = para;
+        englishContentEl.appendChild(paraEl);
+      }
+    });
+</script>
+
 </html>

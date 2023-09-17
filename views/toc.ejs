@@ -1,69 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript">
-      const books = {
-        1: 236,
-        2: 80,
-        3: 313,
-        4: 72,
-        5: 199,
-        6: 124,
-        7: 23,
-        8: 96,
-        9: 65,
-        10: 18,
-        11: 27,
-        12: 365,
-        13: 168,
-        14: 92,
-        15: 39,
-        16: 8,
-        17: 3,
-        18: 6,
-      };
-    </script>
-    <title>Mahabharata - Table of Contents</title>
-  </head>
 
-  <body>
-    <div class="container">
-      <div class="main-heading">Mahabharata</div>
-      <div class="toc"></div>
-      <% if (locals.book) { %>
-      <script type="module">
-        const book = parseInt("<%- locals.book %>");
-        const tocSectionEl = document.querySelector(".toc");
-        for (let i = 1; i <= books[book]; i++) {
-          const sectionEl = document.createElement("a");
-          sectionEl.classList.add("link");
-          sectionEl.textContent = `Section ${i}`;
-          sectionEl.href = `/read?book=${book}&section=${i}`;
-          tocSectionEl.appendChild(sectionEl);
-        }
-      </script>
-      <% } else { %>
-      <script type="module">
-        const tocBookEl = document.querySelector(".toc");
-        for (let i = 1; i <= Object.keys(books).length; i++) {
-          const bookEl = document.createElement("a");
-          bookEl.classList.add("link");
-          bookEl.textContent = `Book ${i}`;
-          bookEl.href = `/toc?book=${i}`;
-          tocBookEl.appendChild(bookEl);
-        }
-      </script>
-      <% } %>
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="text/javascript">
+    const numSections = "<%= numSections %>".split(",")
+  </script>
+  <title>Mahabharata - Table of Contents</title>
+</head>
+
+<body>
+  <div class="container">
+    <a class="main-heading" href="/">Mahabharata</a>
+    <div class="toc"></div>
+    <% if (locals.book) { %>
+    <script type="module">
+      const book = parseInt("<%- locals.book %>");
+      const tocSectionEl = document.querySelector(".toc");
+      for (let i = 1; i <= numSections[book]; i++) {
+        const sectionEl = document.createElement("a");
+        sectionEl.classList.add("link");
+        sectionEl.textContent = `Section ${i}`;
+        sectionEl.href = `/read?book=${book}&section=${i}`;
+        tocSectionEl.appendChild(sectionEl);
+      }
+    </script>
+    <% } else { %>
+    <script type="module">
+      const tocBookEl = document.querySelector(".toc");
+      const bookNames = "<%= bookNames %>".split(",");
+      for (let i = 1; i <= Object.keys(numSections).length; i++) {
+        const bookEl = document.createElement("a");
+        bookEl.classList.add("link");
+        bookEl.textContent = `Book ${i} - ${bookNames[i - 1]}`;
+        bookEl.href = `/toc?book=${i}`;
+        tocBookEl.appendChild(bookEl);
+      }
+    </script>
+    <% } %>
+  </div>
+</body>
+
 </html>

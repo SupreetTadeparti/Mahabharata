@@ -3,6 +3,31 @@ const app = express();
 const data = require("./data.json");
 const sdata = require("./sdata.json");
 
+const numSections = [
+  236, 80, 313, 72, 199, 124, 23, 96, 65, 18, 27, 365, 168, 92, 39, 8, 3, 6,
+];
+
+const bookNames = [
+  "Adi Parva",
+  "Sabha Parva",
+  "Vana Parva",
+  "Virata Parva",
+  "Udyoga Parva",
+  "Bhishma Parva",
+  "Drona Parva",
+  "Karna Parva",
+  "Shalya Parva",
+  "Sauptika Parva",
+  "Stri Parva",
+  "Shanti Parva",
+  "Anushasana Parva",
+  "Ashvamedhika Parva",
+  "Ashramavasika Parva",
+  "Mausala Parva",
+  "Mahaprasthanika Parva",
+  "Svargarohanika Parva",
+];
+
 require("dotenv");
 
 app.use(express.static("public"));
@@ -13,11 +38,19 @@ app.get("/", (_req, res) => {
 });
 
 app.get("/read", (req, res) => {
-  res.render("read", req.query);
+  res.render("read", {
+    ...req.query,
+    bookNames: bookNames,
+    numSections: numSections,
+  });
 });
 
 app.get("/toc", (req, res) => {
-  res.render("toc", req.query);
+  res.render("toc", {
+    ...req.query,
+    bookNames: bookNames,
+    numSections: numSections,
+  });
 });
 
 app.get("/data", (req, res) => {
